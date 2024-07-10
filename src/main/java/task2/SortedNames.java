@@ -1,18 +1,19 @@
 package task2;
 
-import task1.UserNames;
+import Generally.UserName;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class SortedNames {
     public static void main(String[] args) {
-        List<UserNames> names = List.of(
-                new UserNames("John"),
-                new UserNames("Lily"),
-                new UserNames("Anna"),
-                new UserNames("Tom"),
-                new UserNames("Maria")
+        List<UserName> names = List.of(
+                new UserName("John"),
+                new UserName("Lily"),
+                new UserName("Anna"),
+                new UserName("Tom"),
+                new UserName("Maria")
         );
 
         List<String> sortedUpperCaseNames = processStrings(names);
@@ -20,11 +21,11 @@ public class SortedNames {
 
     }
 
-    public static List<String> processStrings(List<UserNames> names ) {
+    public static List<String> processStrings(List<UserName> names ) {
 
         return names.stream()
                 .map(user -> user.getName().toUpperCase())
-                .sorted((s1, s2) -> s2.compareTo(s1))
+                .sorted(Comparator.reverseOrder())
                 .collect(Collectors.toList()); // збираємо в список
     }
 }

@@ -14,14 +14,12 @@ public class MixStreamElements {
         System.out.println(zip.collect(Collectors.toList()));
 
     }
+
     public static <T> Stream<T> zip(Stream<T> first, Stream<T> second) {
-        List<T> res = new ArrayList<>();
-        Iterator<T> iterator1 = first.iterator();
-        Iterator<T> iterator2 = second.iterator();
-        while (iterator1.hasNext() && iterator2.hasNext()) {
-            res.add(iterator1.next());
-            res.add(iterator2.next());
-        }
-        return res.stream();
+        Iterator<T> secondIterator = second.iterator();
+        return first.flatMap(element ->
+                secondIterator.hasNext()
+                        ? Stream.of(element, secondIterator.next())
+                        : Stream.empty());
     }
 }
